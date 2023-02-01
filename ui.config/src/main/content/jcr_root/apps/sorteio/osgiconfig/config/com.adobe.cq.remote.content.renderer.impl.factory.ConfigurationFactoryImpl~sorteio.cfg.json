@@ -1,0 +1,9 @@
+{
+    "getContentPathPattern": "/content/sorteio/(.*)|/conf/sorteio/(.*)/settings/wcm/templates/(.*)",
+    "getRemoteHTMLRendererUrl" : "http://localhost:3233/api/v1/web/guest/sorteio-0.1.0/ssr",
+    "getRequestTimeout": 10000,
+    "getAdditionalRequestHeaders": [
+
+    ],
+    "getCompression": "none"
+}

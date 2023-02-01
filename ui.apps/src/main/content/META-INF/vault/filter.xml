@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/sorteio/clientlibs"/>
+    <filter root="/apps/sorteio/components"/>
+    <filter root="/apps/sorteio/i18n"/>
+</workspaceFilter>
