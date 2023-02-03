@@ -18,7 +18,11 @@ import withAsyncImport from "../utils/withAsyncImport";
 import './Page/Page';
 import './Container/Container';
 import './ExperienceFragment/ExperienceFragment';
-
+import './FormSorteio/FormSorteio';
+import './Login/Login';
+import './IntraSorteio/IntraSorteio';
+import './Success/Success';
+import './AdmRegister/AdmRegister'
 import {MapTo} from '@adobe/aem-react-editable-components';
 
 import {
