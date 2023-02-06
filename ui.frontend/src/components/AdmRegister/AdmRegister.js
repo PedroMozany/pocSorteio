@@ -10,7 +10,7 @@ import {
     BtAdmContainer,
     ErrorStyled
 } from './AdmRegisterStyled'
-import { Button } from '../micro/Button/Button';
+import { Button } from '../Micro/Button/Button';
 import { Title } from '../Micro/Title/Title';
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom"

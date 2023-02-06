@@ -5,7 +5,7 @@ import { FormContainer } from './FormSorteioStyled';
 import { ButtonContainer } from './FormSorteioStyled';
 import { TitleContainer } from './FormSorteioStyled';
 import { Container } from './FormSorteioStyled';
-import { Button } from '../micro/Button/Button';
+import { Button } from '../Micro/Button/Button';
 import { Title } from '../Micro/Title/Title';
 import { ErrorStyled } from './FormSorteioStyled';
 import { ErrorContainer } from './FormSorteioStyled';

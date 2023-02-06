@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { Button } from '../micro/Button/Button';
+import { Button } from '../Micro/Button/Button';
 import { Title } from '../Micro/Title/Title';
 import { Text } from '../Micro/Text/Text';
 import {
