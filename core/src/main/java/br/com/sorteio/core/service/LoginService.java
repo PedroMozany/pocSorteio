@@ -8,6 +8,6 @@ import javax.jcr.RepositoryException;
 import java.io.IOException;
 
 public interface LoginService {
-    boolean verify(SlingHttpServletRequest request, Admin adim) throws RepositoryException, ExceptionsParamenter, IOException;
+    boolean verify(SlingHttpServletRequest request, Admin admin) throws RepositoryException, ExceptionsParamenter, IOException;
 
 }

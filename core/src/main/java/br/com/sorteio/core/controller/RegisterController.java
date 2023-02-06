@@ -7,8 +7,8 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import javax.jcr.RepositoryException;
 
 public interface RegisterController {
-    void addParticipant(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter;
+    void addParticipant(SlingHttpServletRequest request) throws ExceptionsParamenter;
     void deleteParticipant(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter;
-    void deleteAll(SlingHttpServletRequest request, SlingHttpServletResponse response) throws RepositoryException;
+    void deleteAll(SlingHttpServletRequest request) throws RepositoryException;
     String listParticipant (SlingHttpServletRequest request, SlingHttpServletResponse response);
 }

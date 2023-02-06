@@ -23,6 +23,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.propertytypes.ServiceDescription;
@@ -55,11 +56,17 @@ public class SorteioServlet extends SlingAllMethodsServlet implements Serializab
     @Reference
     SorteioController sorteioController;
 
+    @Activate
+    public SorteioServlet(@Reference SorteioController sorteioController) {
+        this.sorteioController = sorteioController;
+    }
+
+
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws IOException {
 
         try {
-            String client = sorteioController.raffle(request, response);
+            String client = sorteioController.raffle(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(client);

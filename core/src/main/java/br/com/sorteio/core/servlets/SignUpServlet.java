@@ -66,7 +66,7 @@ public class SignUpServlet extends SlingAllMethodsServlet {
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
-            signUpController.creat(request,response);
+            signUpController.creat(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), "Success!!")));
@@ -81,7 +81,7 @@ public class SignUpServlet extends SlingAllMethodsServlet {
     @Override
     protected void doDelete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
-            signUpController.delete(request,response);
+            signUpController.delete(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), "Success!!")));

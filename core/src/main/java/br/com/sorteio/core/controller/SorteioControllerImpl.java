@@ -6,7 +6,6 @@ import br.com.sorteio.core.service.RegisterServiceImpl;
 import br.com.sorteio.core.service.SorteioService;
 import com.google.gson.Gson;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -25,7 +24,7 @@ public class SorteioControllerImpl implements SorteioController, Serializable {
     SorteioService sorteioService;
 
     @Override
-    public String raffle(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+    public String raffle(SlingHttpServletRequest request) throws ExceptionsParamenter {
         ResourceResolver resolverResolver = request.getResourceResolver();
         Session session = resolverResolver.adaptTo(Session.class);
         try {

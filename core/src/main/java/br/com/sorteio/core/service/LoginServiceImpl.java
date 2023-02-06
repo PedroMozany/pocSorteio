@@ -18,6 +18,10 @@ public class LoginServiceImpl implements LoginService, Serializable {
     private static final long serialVersionUID = 1L;
     private static final String PATH = "/content/usergenerated/login";
 
+
+
+
+
     @Override
     public boolean verify(SlingHttpServletRequest request, Admin admin) throws RepositoryException, ExceptionsParamenter, IOException {
 
@@ -35,4 +39,6 @@ public class LoginServiceImpl implements LoginService, Serializable {
 
         throw new ExceptionsParamenter("Does not exist");
     }
+
+
 }

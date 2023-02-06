@@ -24,7 +24,7 @@ public class RegisterControllerImpl implements RegisterController, Serializable 
 
 
     @Override
-    public void addParticipant(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+    public void addParticipant(SlingHttpServletRequest request) throws ExceptionsParamenter {
 
         ResourceResolver resourceResolver = request.getResourceResolver();
         Session session = resourceResolver.adaptTo(Session.class);
@@ -68,7 +68,7 @@ public class RegisterControllerImpl implements RegisterController, Serializable 
     }
 
     @Override
-    public void deleteAll(SlingHttpServletRequest request, SlingHttpServletResponse response) throws RepositoryException {
+    public void deleteAll(SlingHttpServletRequest request) throws RepositoryException {
         ResourceResolver resourceResolver = request.getResourceResolver();
         Session session = resourceResolver.adaptTo(Session.class);
 

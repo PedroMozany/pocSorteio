@@ -23,6 +23,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.propertytypes.ServiceDescription;
@@ -62,10 +63,16 @@ public class RegisterServlet extends SlingAllMethodsServlet implements Serializa
     @Reference
     RegisterController registerController;
 
+    @Activate
+    public RegisterServlet(@Reference RegisterController registerController) {
+        this.registerController = registerController;
+    }
+
+
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
-            registerController.addParticipant(request,response);
+            registerController.addParticipant(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), "Success!!")));
@@ -108,7 +115,7 @@ public class RegisterServlet extends SlingAllMethodsServlet implements Serializa
     @Override
     protected void doDelete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
-            registerController.deleteAll(request,response);
+            registerController.deleteAll(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), "Success!!")));

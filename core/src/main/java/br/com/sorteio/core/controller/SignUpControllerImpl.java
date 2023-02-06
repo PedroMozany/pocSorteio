@@ -4,7 +4,6 @@ import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Admin;
 import br.com.sorteio.core.service.SignUpService;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -23,7 +22,7 @@ public class SignUpControllerImpl implements SignUpController,Serializable {
     SignUpService signUpService;
 
     @Override
-    public void creat(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+    public void creat(SlingHttpServletRequest request) throws ExceptionsParamenter {
 
         ResourceResolver resourceResolver = request.getResourceResolver();
         Session session = resourceResolver.adaptTo(Session.class);
@@ -48,7 +47,7 @@ public class SignUpControllerImpl implements SignUpController,Serializable {
 
 
     @Override
-    public void delete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+    public void delete(SlingHttpServletRequest request) throws ExceptionsParamenter {
 
         ResourceResolver resourceResolver = request.getResourceResolver();
         Session session = resourceResolver.adaptTo(Session.class);

@@ -23,6 +23,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.propertytypes.ServiceDescription;
@@ -57,10 +58,15 @@ public class LoginServlet extends SlingAllMethodsServlet implements Serializable
     @Reference
     LoginController loginController;
 
+    @Activate
+    public LoginServlet(@Reference LoginController loginController) {
+        this.loginController = loginController;
+    }
+
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
-            loginController.login(request, response);
+            loginController.login(request);
             response.setContentType("application/json");
             response.setStatus(200);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), "Success!!")));

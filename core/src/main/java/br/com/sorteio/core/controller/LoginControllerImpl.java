@@ -28,7 +28,7 @@ public class LoginControllerImpl implements LoginController, Serializable {
 
     @Override
 
-    public void login(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+    public void login(SlingHttpServletRequest request) throws ExceptionsParamenter {
         try {
             String name = request.getParameter("name");
             String password = request.getParameter("password");
