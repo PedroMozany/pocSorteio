@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { Input } from '../micro/input/Input';
+import { Input } from '../Micro/input/Input';
 import {
     FormContainer,
     ButtonContainer,

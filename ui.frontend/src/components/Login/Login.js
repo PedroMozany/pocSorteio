@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useRef, useEffect, useContext } from 'react';
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { Input } from '../micro/input/Input';
+import { Input } from '../Micro/input/Input';
 import { Text } from '../Micro/Text/Text'
 import {
     FormContainer,
