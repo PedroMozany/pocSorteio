@@ -1,5 +1,6 @@
-package br.com.sorteio.core.controller;
+package br.com.sorteio.core.controller.impl;
 
+import br.com.sorteio.core.controller.RegisterController;
 import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Client;
 import br.com.sorteio.core.service.RegisterService;

@@ -1,5 +1,6 @@
-package br.com.sorteio.core.controller;
+package br.com.sorteio.core.controller.impl;
 
+import br.com.sorteio.core.controller.SignUpController;
 import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Admin;
 import br.com.sorteio.core.service.SignUpService;

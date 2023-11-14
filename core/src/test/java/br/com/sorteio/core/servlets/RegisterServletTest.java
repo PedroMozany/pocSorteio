@@ -58,7 +58,6 @@ class RegisterServletTest {
     void setup(AemContext context) {
         MockitoAnnotations.openMocks(this);
         registerServlet = new RegisterServlet(registerController);
-
         request = context.request();
         response = context.response();
     }

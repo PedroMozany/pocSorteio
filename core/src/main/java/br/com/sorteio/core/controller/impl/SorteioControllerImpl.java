@@ -1,8 +1,9 @@
-package br.com.sorteio.core.controller;
+package br.com.sorteio.core.controller.impl;
 
+import br.com.sorteio.core.controller.SorteioController;
 import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Client;
-import br.com.sorteio.core.service.RegisterServiceImpl;
+import br.com.sorteio.core.service.impl.RegisterServiceImpl;
 import br.com.sorteio.core.service.SorteioService;
 import com.google.gson.Gson;
 import org.apache.sling.api.SlingHttpServletRequest;

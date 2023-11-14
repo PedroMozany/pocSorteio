@@ -1,6 +1,7 @@
-package br.com.sorteio.core.service;
+package br.com.sorteio.core.service.impl;
 
 import br.com.sorteio.core.models.Admin;
+import br.com.sorteio.core.service.SignUpService;
 import com.day.cq.commons.jcr.JcrUtil;
 import org.osgi.service.component.annotations.Component;
 

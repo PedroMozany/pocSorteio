@@ -1,7 +1,8 @@
-package br.com.sorteio.core.service;
+package br.com.sorteio.core.service.impl;
 
 import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Admin;
+import br.com.sorteio.core.service.JWTokenService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.osgi.service.component.annotations.Component;

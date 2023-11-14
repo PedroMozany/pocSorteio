@@ -1,6 +1,7 @@
-package br.com.sorteio.core.service;
+package br.com.sorteio.core.service.impl;
 
 import br.com.sorteio.core.models.Client;
+import br.com.sorteio.core.service.RegisterService;
 import com.day.cq.commons.jcr.JcrUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
