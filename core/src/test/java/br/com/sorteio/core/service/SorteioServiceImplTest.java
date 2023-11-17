@@ -1,65 +1,60 @@
 package br.com.sorteio.core.service;
 
 import br.com.sorteio.core.models.Client;
+import br.com.sorteio.core.service.impl.SorteioServiceImpl;
 import com.google.gson.Gson;
-import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
-import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
+import org.apache.sling.api.resource.ValueMap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.jcr.RepositoryException;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
 class SorteioServiceImplTest {
-    private static final Gson GSON = new Gson();
-    @Mock
     private SorteioService sorteioService;
 
     @Mock
-    ResourceResolver resourceResolver;
-    @Mock
-    private MockSlingHttpServletRequest request;
+    private ResourceResolver resolverResolver;
 
     @Mock
-    private MockSlingHttpServletResponse response;
-
+    private Resource resource;
     @Mock
-    ResourceResolver resolverResolver;
+    private ValueMap valueMap;
 
     @BeforeEach
-    void setup(AemContext context) {
+    void setup() {
         MockitoAnnotations.openMocks(this);
-        sorteioService = Mockito.mock(SorteioService.class);
-
-        resourceResolver = context.resourceResolver();
-        request = context.request();
-        response = context.response();
+        sorteioService = new SorteioServiceImpl();
     }
 
     @Test
-    void raffle() throws RepositoryException {
-        Client winner = new Client("pedro", "pedro@hotmail.com") ;
-        String bodyJson = GSON.toJson(winner);
-        request.setContent(bodyJson.getBytes(StandardCharsets.UTF_8));
-        Mockito.when(sorteioService.raffle(resolverResolver)).thenReturn(winner);
+    void raffle() {
+        when(resource.getValueMap()).thenReturn(valueMap);
+        when(valueMap.values()).thenReturn(Arrays.asList(List.of("id1", "pedro", "pedro@hotmail.com").toArray()));
+        when(resolverResolver.getResource("/content/usergenerated/sorteio")).thenReturn(mock(Resource.class));
+        when(resolverResolver.getResource("/content/usergenerated/sorteio").listChildren()).thenReturn(Collections.singletonList(resource).iterator());
 
+        Client actual = null;
         try {
-          sorteioService.raffle(resolverResolver);
+            actual = sorteioService.raffle(resolverResolver);
         } catch (Exception e) {
             Assertions.fail();
         }
-        Assertions.assertEquals(200,response.getStatus());
-        Assertions.assertEquals("",response.getOutputAsString());
+        Assertions.assertEquals("pedro", actual.getName());
+        Assertions.assertEquals("pedro@hotmail.com", actual.getEmail());
     }
 
 

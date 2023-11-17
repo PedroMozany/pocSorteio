@@ -33,6 +33,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
@@ -44,27 +45,27 @@ class RegisterServletTest {
 
     private static final Gson GSON = new Gson();
 
-    @Mock
     private RegisterServlet registerServlet;
 
     @Mock
     private RegisterController registerController;
-    @Mock
+
     private MockSlingHttpServletRequest request;
-    @Mock
+
     private MockSlingHttpServletResponse response;
 
     @BeforeEach
     void setup(AemContext context) {
         MockitoAnnotations.openMocks(this);
-        registerServlet = new RegisterServlet(registerController);
+        registerServlet = new RegisterServlet();
+        registerServlet.registerController = registerController;
         request = context.request();
         response = context.response();
     }
 
 
     @Test
-    void doPostAddParticipant() {
+    void doPost() {
         DtoStatus dtdContext = new DtoStatus(200, "Success!!");
         String bodyJson = GSON.toJson(dtdContext);
         request.setContent(bodyJson.getBytes(StandardCharsets.UTF_8));
@@ -81,7 +82,7 @@ class RegisterServletTest {
 
 
     @Test
-    void doPostErrorParameters() throws ExceptionsParamenter {
+    void doPostError() throws ExceptionsParamenter {
         DtoStatus dtdContext = new DtoStatus(500, "Please, check the parameters.");
         String bodyJson = GSON.toJson(dtdContext);
         request.setContent(bodyJson.getBytes(StandardCharsets.UTF_8));
@@ -100,7 +101,7 @@ class RegisterServletTest {
 
 
     @Test
-    void doGetListParticipant() {
+    void doGet() {
         List<Client> authorList = new LinkedList<>();
         authorList.add(new Client("pedro","pedro@hotmail.com"));
         authorList.add(new Client("bruna","bruna@hotmail.com"));
@@ -121,7 +122,7 @@ class RegisterServletTest {
 
 
     @Test
-    void doPutDeleteParticipant() throws ExceptionsParamenter {
+    void doPut() throws ExceptionsParamenter {
         request.addRequestParameter("email", "pedro@hotmail.com");
         DtoStatus dtdContext = new DtoStatus(200, "Success!!");
         String bodyJson = GSON.toJson(dtdContext);
@@ -130,6 +131,26 @@ class RegisterServletTest {
 
         try {
             registerServlet.doPut(request, response);
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+
+        Assertions.assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+        Assertions.assertEquals("application/json", response.getContentType());
+        Assertions.assertEquals(bodyJson, response.getOutputAsString());
+    }
+
+
+    @Test
+    void doDelete() throws RepositoryException {
+        request.addRequestParameter("email", "pedro@hotmail.com");
+        DtoStatus dtdContext = new DtoStatus(200, "Success!!");
+        String bodyJson = GSON.toJson(dtdContext);
+        request.setContent(bodyJson.getBytes(StandardCharsets.UTF_8));
+        Mockito.doNothing().when(registerController).deleteAll(request);
+
+        try {
+            registerServlet.doDelete(request, response);
         } catch (Exception e) {
             Assertions.fail();
         }

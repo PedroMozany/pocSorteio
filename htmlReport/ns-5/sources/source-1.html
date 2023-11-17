@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > JWTokenServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.com.sorteio.core.service.impl</a>
+</div>
+
+<h1>Coverage Summary for Class: JWTokenServiceImpl (br.com.sorteio.core.service.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JWTokenServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.com.sorteio.core.service.impl;
+&nbsp;
+&nbsp;import br.com.sorteio.core.exceptions.ExceptionsParamenter;
+&nbsp;import br.com.sorteio.core.models.Admin;
+&nbsp;import br.com.sorteio.core.service.JWTokenService;
+&nbsp;import org.apache.sling.api.SlingHttpServletRequest;
+&nbsp;import org.apache.sling.api.SlingHttpServletResponse;
+&nbsp;import org.osgi.service.component.annotations.Component;
+&nbsp;
+&nbsp;import javax.servlet.http.HttpSession;
+&nbsp;import java.io.Serializable;
+&nbsp;import java.security.InvalidKeyException;
+&nbsp;
+&nbsp;@Component(immediate = true, service = JWTokenService.class)
+<b class="nc">&nbsp;public class JWTokenServiceImpl implements JWTokenService, Serializable {</b>
+&nbsp;    private static final long serialVersionUID = 1L;
+&nbsp;    private char[] key;
+&nbsp;    private int[] sbox;
+&nbsp;    private static final int SBOX_LENGTH = 256;
+&nbsp;    private static final int TAM_MIN_CHAVE = 5;
+&nbsp;    private static final String SECRET = &quot;SenhaTokenSorteioCompass.Uol&quot;;
+&nbsp;    private static final String HEADER_STRING = &quot;Authorization&quot;;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addAuthentication(SlingHttpServletRequest request, Admin admin) throws ExceptionsParamenter {
+<b class="nc">&nbsp;        HttpSession session = request.getSession();</b>
+<b class="nc">&nbsp;        String key = admin.getName() + &quot; &quot; + admin.getPassword();</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            setKey(SECRET);</b>
+<b class="nc">&nbsp;            char[] mensagemCriptografada = criptografa(key.toCharArray());</b>
+<b class="nc">&nbsp;            session.setAttribute(HEADER_STRING,new String(mensagemCriptografada));</b>
+<b class="nc">&nbsp;        } catch (InvalidKeyException e) {</b>
+<b class="nc">&nbsp;            throw new ExceptionsParamenter(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getAuthentication(HttpSession session, SlingHttpServletResponse response) {
+<b class="nc">&nbsp;        char[] mensagemCriptografada = new String((String) session.getAttribute(HEADER_STRING)).toCharArray();</b>
+<b class="nc">&nbsp;        char[] textoDescriptografado = criptografa(mensagemCriptografada);</b>
+<b class="nc">&nbsp;        return new String(textoDescriptografado);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private char[] criptografa(final char[] msg) {
+<b class="nc">&nbsp;        sbox = initSBox(key);</b>
+<b class="nc">&nbsp;        char[] code = new char[msg.length];</b>
+<b class="nc">&nbsp;        int i = 0;</b>
+<b class="nc">&nbsp;        int j = 0;</b>
+<b class="nc">&nbsp;        for (int n = 0; n &lt; msg.length; n++) {</b>
+<b class="nc">&nbsp;            i = (i + 1) % SBOX_LENGTH;</b>
+<b class="nc">&nbsp;            j = (j + sbox[i]) % SBOX_LENGTH;</b>
+<b class="nc">&nbsp;            swap(i, j, sbox);</b>
+<b class="nc">&nbsp;            int rand = sbox[(sbox[i] + sbox[j]) % SBOX_LENGTH];</b>
+<b class="nc">&nbsp;            code[n] = (char) (rand ^ (int) msg[n]);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return code;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int[] initSBox(char[] key) {
+<b class="nc">&nbsp;        int[] sbox = new int[SBOX_LENGTH];</b>
+<b class="nc">&nbsp;        int j = 0;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; sbox.length; i++) {</b>
+<b class="nc">&nbsp;            sbox[i] = i;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; sbox.length; i++) {</b>
+<b class="nc">&nbsp;            j = (j + sbox[i] + key[i % key.length]) % SBOX_LENGTH;</b>
+<b class="nc">&nbsp;            swap(i, j, sbox);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return sbox;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void swap(int i, int j, int[] sbox) {
+<b class="nc">&nbsp;        int temp = sbox[i];</b>
+<b class="nc">&nbsp;        sbox[i] = sbox[j];</b>
+<b class="nc">&nbsp;        sbox[j] = temp;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void setKey(String key) throws InvalidKeyException {
+<b class="nc">&nbsp;        if (!(key.length() &gt;= TAM_MIN_CHAVE &amp;&amp; key.length() &lt; SBOX_LENGTH)) {</b>
+<b class="nc">&nbsp;            throw new InvalidKeyException(&quot;Tamanho da chave deve ser entre &quot;</b>
+&nbsp;                    + TAM_MIN_CHAVE + &quot; e &quot; + (SBOX_LENGTH - 1));
+&nbsp;        }
+<b class="nc">&nbsp;        this.key = key.toCharArray();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 22:58</div>
+</div>
+</body>
+</html>

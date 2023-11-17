@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RegisterControllerImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.com.sorteio.core.controller.impl</a>
+</div>
+
+<h1>Coverage Summary for Class: RegisterControllerImpl (br.com.sorteio.core.controller.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegisterControllerImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.com.sorteio.core.controller.impl;
+&nbsp;
+&nbsp;import br.com.sorteio.core.controller.RegisterController;
+&nbsp;import br.com.sorteio.core.exceptions.ExceptionsParamenter;
+&nbsp;import br.com.sorteio.core.models.Client;
+&nbsp;import br.com.sorteio.core.service.RegisterService;
+&nbsp;import com.google.gson.Gson;
+&nbsp;import org.apache.sling.api.SlingHttpServletRequest;
+&nbsp;import org.apache.sling.api.SlingHttpServletResponse;
+&nbsp;import org.apache.sling.api.resource.ResourceResolver;
+&nbsp;import org.osgi.service.component.annotations.Component;
+&nbsp;import org.osgi.service.component.annotations.Reference;
+&nbsp;
+&nbsp;import javax.jcr.RepositoryException;
+&nbsp;import javax.jcr.Session;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.Serializable;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Component(immediate = true, service = RegisterController.class)
+<b class="nc">&nbsp;public class RegisterControllerImpl implements RegisterController, Serializable {</b>
+&nbsp;    private static final long serialVersionUID = 1L;
+&nbsp;    @Reference
+&nbsp;    RegisterService registerService;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addParticipant(SlingHttpServletRequest request) throws ExceptionsParamenter {
+&nbsp;
+<b class="nc">&nbsp;        ResourceResolver resourceResolver = request.getResourceResolver();</b>
+<b class="nc">&nbsp;        Session session = resourceResolver.adaptTo(Session.class);</b>
+&nbsp;
+<b class="nc">&nbsp;        String name = request.getParameter(&quot;name&quot;).toLowerCase();</b>
+<b class="nc">&nbsp;        String email = request.getParameter(&quot;email&quot;).toLowerCase();</b>
+<b class="nc">&nbsp;        valetationSession(session);</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            if (name != null &amp;&amp; email != null &amp;&amp; !name.equals(&quot;&quot;) &amp;&amp; !email.equals(&quot;&quot;)) {</b>
+&nbsp;
+<b class="nc">&nbsp;                registerService.addParticipant(session, new Client(name, email));</b>
+&nbsp;
+&nbsp;            } else {
+<b class="nc">&nbsp;                throw new ExceptionsParamenter(&quot;Please, check the parameters.&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (RepositoryException e) {</b>
+<b class="nc">&nbsp;            throw new ExceptionsParamenter(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteParticipant(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ExceptionsParamenter {
+<b class="nc">&nbsp;        ResourceResolver resourceResolver = request.getResourceResolver();</b>
+<b class="nc">&nbsp;        Session session = resourceResolver.adaptTo(Session.class);</b>
+&nbsp;
+<b class="nc">&nbsp;        String email = request.getParameter(&quot;email&quot;).toLowerCase();</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            if (email != null) {</b>
+<b class="nc">&nbsp;                registerService.deleteParticipant(session, email);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                throw new ExceptionsParamenter(&quot;Please, check the parameters.&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (RepositoryException | ExceptionsParamenter e) {</b>
+<b class="nc">&nbsp;            throw new ExceptionsParamenter(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteAll(SlingHttpServletRequest request) throws RepositoryException {
+<b class="nc">&nbsp;        ResourceResolver resourceResolver = request.getResourceResolver();</b>
+<b class="nc">&nbsp;        Session session = resourceResolver.adaptTo(Session.class);</b>
+&nbsp;
+<b class="nc">&nbsp;        registerService.deleteAll(session);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String listParticipant(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+<b class="nc">&nbsp;        ResourceResolver resolverResolver = request.getResourceResolver();</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Client&gt; list = registerService.listParticipant(resolverResolver);</b>
+<b class="nc">&nbsp;        return new Gson().toJson(list);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private boolean valetationSession(Session session) throws ExceptionsParamenter {
+<b class="nc">&nbsp;        if (session == null) {</b>
+<b class="nc">&nbsp;            throw new ExceptionsParamenter(&quot;Session is null.&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void writeObject(java.io.ObjectOutputStream stream)
+&nbsp;            throws IOException {
+<b class="nc">&nbsp;        stream.defaultWriteObject();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void readObject(java.io.ObjectInputStream stream)
+&nbsp;            throws IOException, ClassNotFoundException {
+<b class="nc">&nbsp;        stream.defaultReadObject();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 22:58</div>
+</div>
+</body>
+</html>

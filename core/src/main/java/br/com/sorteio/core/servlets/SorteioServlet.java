@@ -35,6 +35,7 @@ import java.io.Serializable;
 import static org.apache.sling.api.servlets.HttpConstants.METHOD_GET;
 import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVLET_EXTENSIONS;
 import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVLET_METHODS;
+import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVLET_PATHS;
 import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES;
 
 /**
@@ -45,22 +46,13 @@ import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVL
  */
 @Component(immediate = true, service = Servlet.class, property = {
         SLING_SERVLET_METHODS + "=" + METHOD_GET,
-        SLING_SERVLET_RESOURCE_TYPES + "=" + SorteioServlet.RESOURCE_TYPE,
-        SLING_SERVLET_EXTENSIONS + "=" + SorteioServlet.EXTENSION})
+        SLING_SERVLET_PATHS + "=" + "raffle/winner",
+        SLING_SERVLET_EXTENSIONS + "=" + "json"})
 @ServiceDescription("Servlet Sorteio")
 public class SorteioServlet extends SlingAllMethodsServlet implements Serializable {
     private static final long serialVersionUID = 2405172041950251807L;
-    public static final String RESOURCE_TYPE = "raffle/winner";
-    public static final String EXTENSION = "json";
-
     @Reference
     SorteioController sorteioController;
-
-    @Activate
-    public SorteioServlet(@Reference SorteioController sorteioController) {
-        this.sorteioController = sorteioController;
-    }
-
 
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws IOException {
@@ -75,16 +67,6 @@ public class SorteioServlet extends SlingAllMethodsServlet implements Serializab
             response.setStatus(500);
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), e.getMessage())));
         }
-    }
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
     }
 
 }

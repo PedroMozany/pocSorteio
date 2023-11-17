@@ -20,9 +20,6 @@ public class LoginServiceImpl implements LoginService, Serializable {
     private static final String PATH = "/content/usergenerated/login";
 
 
-
-
-
     @Override
     public boolean verify(SlingHttpServletRequest request, Admin admin) throws RepositoryException, ExceptionsParamenter, IOException {
 

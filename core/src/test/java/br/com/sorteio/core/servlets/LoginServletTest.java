@@ -38,7 +38,6 @@ import java.nio.charset.StandardCharsets;
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
 class LoginServletTest {
 
-
     private static final Gson GSON = new Gson();
 
     @Mock
@@ -111,6 +110,4 @@ class LoginServletTest {
         Assertions.assertEquals("application/json", response.getContentType());
         Assertions.assertEquals(GSON.toJson(dtdContext), response.getOutputAsString());
     }
-
-
 }

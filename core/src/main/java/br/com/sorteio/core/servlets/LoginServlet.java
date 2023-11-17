@@ -88,14 +88,4 @@ public class LoginServlet extends SlingAllMethodsServlet implements Serializable
 
     }
 
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
 }

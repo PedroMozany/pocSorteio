@@ -46,14 +46,11 @@ import static org.apache.sling.api.servlets.ServletResolverConstants.SLING_SERVL
 @Component(immediate = true, service = Servlet.class, property = {
         SLING_SERVLET_METHODS + "=" + METHOD_POST,
         SLING_SERVLET_METHODS + "=" + METHOD_DELETE,
-        SLING_SERVLET_RESOURCE_TYPES + "=" + SignUpServlet.RESOURCE_TYPE,
-        SLING_SERVLET_EXTENSIONS + "=" + SignUpServlet.EXTENSION})
+        SLING_SERVLET_RESOURCE_TYPES + "=" + "api/signUp",
+        SLING_SERVLET_EXTENSIONS + "=" + "json"})
 @ServiceDescription("Servlet Sorteio")
 public class SignUpServlet extends SlingAllMethodsServlet {
     private static final long serialVersionUID = 2405172041950251807L;
-    public static final String RESOURCE_TYPE = "api/signUp";
-    public static final String EXTENSION = "json";
-
     @Reference
     SignUpController signUpController;
 
@@ -93,13 +90,4 @@ public class SignUpServlet extends SlingAllMethodsServlet {
         }
     }
 
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
 }

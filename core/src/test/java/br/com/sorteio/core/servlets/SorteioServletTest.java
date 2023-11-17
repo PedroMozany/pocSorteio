@@ -25,6 +25,7 @@ import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,37 +35,35 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
 class SorteioServletTest {
 
 
-    private static final Gson GSON = new Gson();
+    private final Gson GSON = new Gson();
 
-    @Mock
     private SorteioServlet sorteioServlet;
 
     @Mock
     private SorteioController sorteioController;
-    @Mock
+
     private MockSlingHttpServletRequest request;
-    @Mock
     private MockSlingHttpServletResponse response;
 
     @BeforeEach
     void setup(AemContext context) {
         MockitoAnnotations.openMocks(this);
-        sorteioServlet = new SorteioServlet(sorteioController);
-
+        sorteioServlet = new SorteioServlet();
+        sorteioServlet.sorteioController = sorteioController;
         request = context.request();
         response = context.response();
     }
 
-
     @Test
-    void doGetRaffle() throws ExceptionsParamenter {
-        Client winner = new Client("pedro", "pedro@hotmail.com") ;
+    void doGet() throws ExceptionsParamenter {
+        Client winner = new Client("pedro", "pedro@hotmail.com");
         String bodyJson = GSON.toJson(winner);
         request.setContent(bodyJson.getBytes(StandardCharsets.UTF_8));
         Mockito.when(sorteioController.raffle(request)).thenReturn(bodyJson);
@@ -79,6 +78,7 @@ class SorteioServletTest {
         Assertions.assertEquals("application/json", response.getContentType());
         Assertions.assertEquals(GSON.toJson(winner), response.getOutputAsString());
     }
+
 
     @Test
     void doGetRaffleError() throws ExceptionsParamenter {

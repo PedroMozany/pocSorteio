@@ -63,12 +63,6 @@ public class RegisterServlet extends SlingAllMethodsServlet implements Serializa
     @Reference
     RegisterController registerController;
 
-    @Activate
-    public RegisterServlet(@Reference RegisterController registerController) {
-        this.registerController = registerController;
-    }
-
-
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         try {
@@ -125,15 +119,5 @@ public class RegisterServlet extends SlingAllMethodsServlet implements Serializa
             response.getWriter().write(new Gson().toJson(new DtoStatus(response.getStatus(), e.getMessage())));
         }
 
-    }
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
     }
 }
