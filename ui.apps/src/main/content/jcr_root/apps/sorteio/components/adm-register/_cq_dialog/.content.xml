@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ |  ***********************************************************************
+ |  Page Sorteio CONFIDENTIAL
+ |  ___________________
+ |
+ |  Copyright 2023 Page Sorteio
+ |  All Rights Reserved.
+ |
+ |  NOTICE:  All information contained herein is, and remains the property
+ |  of Page Sorteio and its suppliers, if any. The intellectual and
+ |  technical concepts contained herein are proprietary to Page Sorteio
+ |  and its suppliers and are protected by trade secret or copyright law.
+ |  Dissemination of this information or reproduction of this material
+ |  is strictly forbidden unless prior written permission is obtained
+ |  from Page Sorteio.
+ |  ***********************************************************************
+-->
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="ADM Register"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+   <content jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/coral/foundation/container">
+      <items jcr:primaryType="nt:unstructured">
+         <tabs jcr:primaryType="nt:unstructured"
+               sling:resourceType="granite/ui/components/coral/foundation/tabs">
+            <items jcr:primaryType="nt:unstructured">
+               <tab-1 jcr:primaryType="nt:unstructured"
+                      jcr:title="Inputs"
+                      sling:resourceType="granite/ui/components/coral/foundation/container">
+                  <layout jcr:primaryType="nt:unstructured"
+                          sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                  <items jcr:primaryType="nt:unstructured">
+                     <column jcr:primaryType="nt:unstructured"
+                             sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                           <titleText cq-msm-lockable="./titleText"
+                                      fieldLabel="Digite o título do formulário"
+                                      jcr:primaryType="nt:unstructured"
+                                      name="./titleText"
+                                      sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                           <userPlaceholderText cq-msm-lockable="./userPlaceholderText"
+                                                fieldLabel="Digite o placeholder do input"
+                                                jcr:primaryType="nt:unstructured"
+                                                name="./userPlaceholderText"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                           <userLabelText cq-msm-lockable="./userLabelText"
+                                          fieldLabel="Digite a label do input"
+                                          jcr:primaryType="nt:unstructured"
+                                          name="./userLabelText"
+                                          sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                           <placeholderPasswordText cq-msm-lockable="./placeholderPasswordText"
+                                                    fieldLabel="Digite o texto do placeholder do campo de senha"
+                                                    jcr:primaryType="nt:unstructured"
+                                                    name="./placeholderPasswordText"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                           <labelPasswordText cq-msm-lockable="./labelPasswordText"
+                                              fieldLabel="Digite o texto do placeholder do campo de email"
+                                              jcr:primaryType="nt:unstructured"
+                                              name="./labelPasswordText"
+                                              sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                        </items>
+                     </column>
+                  </items>
+               </tab-1>
+               <tab-2 jcr:primaryType="nt:unstructured"
+                      jcr:title="Button"
+                      sling:resourceType="granite/ui/components/coral/foundation/container">
+                  <layout jcr:primaryType="nt:unstructured"
+                          sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                  <items jcr:primaryType="nt:unstructured">
+                     <column jcr:primaryType="nt:unstructured"
+                             sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                           <buttonText cq-msm-lockable="./buttonText"
+                                       fieldLabel="Digite o texto do botão"
+                                       jcr:primaryType="nt:unstructured"
+                                       name="./buttonText"
+                                       sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                        </items>
+                     </column>
+                  </items>
+               </tab-2>
+            </items>
+         </tabs>
+      </items>
+   </content>
+</jcr:root>
