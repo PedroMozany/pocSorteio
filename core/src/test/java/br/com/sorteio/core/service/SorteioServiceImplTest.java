@@ -2,7 +2,6 @@ package br.com.sorteio.core.service;
 
 import br.com.sorteio.core.models.Client;
 import br.com.sorteio.core.service.impl.SorteioServiceImpl;
-import com.google.gson.Gson;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -38,6 +37,7 @@ class SorteioServiceImplTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
         sorteioService = new SorteioServiceImpl();
+
     }
 
     @Test

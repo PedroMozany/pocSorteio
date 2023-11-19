@@ -19,6 +19,7 @@ import java.io.Serializable;
 public class SignUpControllerImpl implements SignUpController,Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Reference
     SignUpService signUpService;
 
@@ -76,15 +77,5 @@ public class SignUpControllerImpl implements SignUpController,Serializable {
         }
         return true;
     }
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
 }
 

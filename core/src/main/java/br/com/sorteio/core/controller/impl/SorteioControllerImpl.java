@@ -3,6 +3,7 @@ package br.com.sorteio.core.controller.impl;
 import br.com.sorteio.core.controller.SorteioController;
 import br.com.sorteio.core.exceptions.ExceptionsParamenter;
 import br.com.sorteio.core.models.Client;
+import br.com.sorteio.core.service.RegisterService;
 import br.com.sorteio.core.service.impl.RegisterServiceImpl;
 import br.com.sorteio.core.service.SorteioService;
 import com.google.gson.Gson;
@@ -24,29 +25,20 @@ public class SorteioControllerImpl implements SorteioController, Serializable {
     @Reference
     SorteioService sorteioService;
 
+    @Reference
+    RegisterService registerService;
+
     @Override
     public String raffle(SlingHttpServletRequest request) throws ExceptionsParamenter {
         ResourceResolver resolverResolver = request.getResourceResolver();
         Session session = resolverResolver.adaptTo(Session.class);
         try {
             Client client = sorteioService.raffle(resolverResolver);
-            new RegisterServiceImpl().deleteParticipant(session,client.getEmail());
+            registerService.deleteParticipant(session,client.getEmail());
             return new Gson().toJson(client);
 
         } catch (RepositoryException e) {
             throw new ExceptionsParamenter(e.getMessage());
         }
     }
-
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
 }

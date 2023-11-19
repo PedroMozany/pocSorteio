@@ -21,14 +21,16 @@ import java.security.NoSuchAlgorithmException;
 public class LoginControllerImpl implements LoginController, Serializable {
 
     private static final long serialVersionUID = 1L;
+
+
     @Reference
     LoginService loginService;
+
     @Reference
     JWTokenService jwTokenService;
 
 
     @Override
-
     public void login(SlingHttpServletRequest request) throws ExceptionsParamenter {
         try {
             String name = request.getParameter("name");
@@ -73,16 +75,6 @@ public class LoginControllerImpl implements LoginController, Serializable {
         HttpSession session = request.getSession();
         session.invalidate();
 
-    }
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
     }
 
 }

@@ -94,14 +94,4 @@ public class RegisterControllerImpl implements RegisterController, Serializable 
         return true;
     }
 
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
 }

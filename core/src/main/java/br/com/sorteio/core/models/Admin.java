@@ -18,6 +18,8 @@ package br.com.sorteio.core.models;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 
+import java.util.Objects;
+
 @Model(adaptables = Resource.class)
 public class Admin {
     private String name;
@@ -29,6 +31,19 @@ public class Admin {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Admin admin = (Admin) o;
+        return Objects.equals(name, admin.name) && Objects.equals(password, admin.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, password);
+    }
+
     public String getName() {
         return name;
     }
@@ -36,6 +51,8 @@ public class Admin {
     public String getPassword() {
         return password;
     }
+
+
 
 
 }
